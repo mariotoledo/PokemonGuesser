@@ -1,0 +1,9 @@
+C:\Users\Mario\documents\visual studio 2015\Projects\PokemonTypeGuesser\PokemonTypeGuesser\bin\Debug\PokemonTypeGuesser.exe.config
+C:\Users\Mario\documents\visual studio 2015\Projects\PokemonTypeGuesser\PokemonTypeGuesser\bin\Debug\PokemonTypeGuesser.exe
+C:\Users\Mario\documents\visual studio 2015\Projects\PokemonTypeGuesser\PokemonTypeGuesser\bin\Debug\PokemonTypeGuesser.pdb
+C:\Users\Mario\documents\visual studio 2015\Projects\PokemonTypeGuesser\PokemonTypeGuesser\obj\Debug\PokemonGuessingGame.csprojResolveAssemblyReference.cache
+C:\Users\Mario\documents\visual studio 2015\Projects\PokemonTypeGuesser\PokemonTypeGuesser\obj\Debug\PokemonGuessingGame.Form1.resources
+C:\Users\Mario\documents\visual studio 2015\Projects\PokemonTypeGuesser\PokemonTypeGuesser\obj\Debug\PokemonTypeGuesser.Properties.Resources.resources
+C:\Users\Mario\documents\visual studio 2015\Projects\PokemonTypeGuesser\PokemonTypeGuesser\obj\Debug\PokemonGuessingGame.csproj.GenerateResource.Cache
+C:\Users\Mario\documents\visual studio 2015\Projects\PokemonTypeGuesser\PokemonTypeGuesser\obj\Debug\PokemonTypeGuesser.exe
+C:\Users\Mario\documents\visual studio 2015\Projects\PokemonTypeGuesser\PokemonTypeGuesser\obj\Debug\PokemonTypeGuesser.pdb

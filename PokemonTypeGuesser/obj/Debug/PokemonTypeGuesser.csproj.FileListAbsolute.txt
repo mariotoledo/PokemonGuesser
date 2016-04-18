@@ -1,0 +1,1 @@
+c:\users\mario\documents\visual studio 2015\Projects\PokemonTypeGuesser\PokemonTypeGuesser\bin\Debug\PokemonTypeGuesser.exe.config
