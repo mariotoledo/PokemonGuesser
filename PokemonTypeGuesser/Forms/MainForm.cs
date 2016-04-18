@@ -1,9 +1,6 @@
 ﻿using PokemonTypeGuesser.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,29 +8,34 @@ using System.Windows.Forms;
 
 namespace PokemonGuessingGame
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private static string DIALOG_TITLE = "Pokémon Guessing Game";
 
         //Initial node of the tree
         Node root;
 
-        public Form1()
+        public MainForm()
         {
+            //creating initial tree
             root = new Node() { NodeType = NodeType.PokemonReferenceNode, Caption = "lives in the water" };
             root.LeftNode = new Node() { NodeType = NodeType.PokemonNameNode, Caption = "Magikarp", ParentNode = root };
             root.RightNode = new Node() { NodeType = NodeType.PokemonNameNode, Caption = "Mankey", ParentNode = root };
         }
 
+        //starts or restars the game
         private void StartGame()
         {
             DialogResult result = MessageBox.Show("Thing about a Pokémon...", DIALOG_TITLE, MessageBoxButtons.OKCancel);
 
-            if(result == DialogResult.OK)
-                ShowDialogFromNode(root, NodeDirection.Left);
+            if (result == DialogResult.OK)
+                ShowDialogFromNode(root);
+            else
+                Application.Exit();
         }
 
-        private void ShowDialogFromNode(Node node, NodeDirection fromDirection)
+        //Display dialogs from each node
+        private void ShowDialogFromNode(Node node)
         {
             string questionText = node.NodeType == NodeType.PokemonReferenceNode ?
                               "Does the Pokémon that you thought about " + node.Caption + "?" :
@@ -44,14 +46,17 @@ namespace PokemonGuessingGame
             if (result == DialogResult.Yes)
                 ReadLeftNode(node);
             else
-                ReadRightNode(node, fromDirection);
+                ReadRightNode(node);
         }
-        
+
+        //reads left children from node. If there is no left children, then it means that the application chose the right path
         private void ReadLeftNode(Node node)
         {
-            if(node.LeftNode != null)
+            lastDirection = NodeDirection.Left;
+
+            if (node.LeftNode != null)
             {
-                ShowDialogFromNode(node.LeftNode, NodeDirection.Left);
+                ShowDialogFromNode(node.LeftNode);
             }
             else
             {
@@ -60,11 +65,14 @@ namespace PokemonGuessingGame
             }
         }
 
-        private void ReadRightNode(Node node, NodeDirection fromDirection)
+        //reads right children from node. If there is no right children, then it means that the Application does not know the answer
+        private void ReadRightNode(Node node)
         {
+            lastDirection = NodeDirection.Right;
+
             if (node.RightNode != null)
             {
-                ShowDialogFromNode(node.RightNode, NodeDirection.Right);
+                ShowDialogFromNode(node.RightNode);
             }
             else
             {
@@ -72,14 +80,14 @@ namespace PokemonGuessingGame
 
                 while (string.IsNullOrEmpty(pokemonName))
                 {
-                    pokemonName = Microsoft.VisualBasic.Interaction.InputBox("What was the name of the Pokémon that you thought about?", DIALOG_TITLE);
+                    pokemonName = ShowDialog("What was the name of the Pokémon that you thought about?", DIALOG_TITLE);
                 }
 
                 string pokemonReference = null;
 
                 while (string.IsNullOrEmpty(pokemonReference))
                 {
-                    pokemonReference = Microsoft.VisualBasic.Interaction.InputBox("A " + pokemonName + " ______ but a Mankey does not (fill it with a Pokémon trait, like 'uses Tackle')", DIALOG_TITLE);
+                    pokemonReference = ShowDialog("A " + pokemonName + " ______ but a Mankey does not (fill it with a Pokémon trait, like 'uses Tackle')", DIALOG_TITLE);
                 }
 
                 Node newPokemonReferenceNode = new Node() { NodeType = NodeType.PokemonReferenceNode, Caption = pokemonReference };
@@ -88,7 +96,7 @@ namespace PokemonGuessingGame
                 newPokemonReferenceNode.RightNode = node;
                 newPokemonReferenceNode.ParentNode = node.ParentNode;
 
-                if(fromDirection == NodeDirection.Left)
+                if (lastDirection == NodeDirection.Left)
                     node.ParentNode.LeftNode = newPokemonReferenceNode;
                 else
                     node.ParentNode.RightNode = newPokemonReferenceNode;
@@ -99,12 +107,36 @@ namespace PokemonGuessingGame
             }
         }
 
+        public static string ShowDialog(string text, string caption)
+        {
+            Form prompt = new Form()
+            {
+                Width = 500,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = caption,
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
+            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400 };
+            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             StartGame();
         }
 
-        private void Form1_Load(object sender, EventArgs e) {}
+        private void Form1_Load(object sender, EventArgs e) { }
+
+        NodeDirection lastDirection;
     }
 
     enum NodeDirection
