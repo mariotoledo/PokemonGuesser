@@ -76,18 +76,20 @@ namespace PokemonGuessingGame
             }
             else
             {
+                //if no children has been found, then it's time to add a new children
+
                 string pokemonName = null;
 
                 while (string.IsNullOrEmpty(pokemonName))
                 {
-                    pokemonName = ShowDialog("What was the name of the Pokémon that you thought about?", DIALOG_TITLE);
+                    pokemonName = ShowInputDialog("What was the name of the Pokémon that you thought about?", DIALOG_TITLE).Trim();
                 }
 
                 string pokemonReference = null;
 
                 while (string.IsNullOrEmpty(pokemonReference))
                 {
-                    pokemonReference = ShowDialog("A " + pokemonName + " ______ but a Mankey does not (fill it with a Pokémon trait, like 'uses Tackle')", DIALOG_TITLE);
+                    pokemonReference = ShowInputDialog("A " + pokemonName + " ______ but a Mankey does not (fill it with a Pokémon trait, like 'uses Tackle')", DIALOG_TITLE).Trim();
                 }
 
                 Node newPokemonReferenceNode = new Node() { NodeType = NodeType.PokemonReferenceNode, Caption = pokemonReference };
@@ -107,21 +109,22 @@ namespace PokemonGuessingGame
             }
         }
 
-        public static string ShowDialog(string text, string caption)
+        //Displays an input dialog
+        public static string ShowInputDialog(string text, string caption)
         {
             Form prompt = new Form()
             {
-                Width = 500,
-                Height = 150,
+                Width = 480,
+                Height = 180,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 Text = caption,
                 StartPosition = FormStartPosition.CenterScreen
             };
-            Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
-            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400 };
-            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            Label textLabel = new Label() { Left = 30, Top = 20, Text = text, Width = 400, Height = 40 };
+            TextBox textBox = new TextBox() { Left = 30, Top = 70, Width = 400, Height = 40 };
+            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 80, Top = 100, DialogResult = DialogResult.OK };
             confirmation.Click += (sender, e) => { prompt.Close(); };
-            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(textBox);   
             prompt.Controls.Add(confirmation);
             prompt.Controls.Add(textLabel);
             prompt.AcceptButton = confirmation;
@@ -137,6 +140,24 @@ namespace PokemonGuessingGame
         private void Form1_Load(object sender, EventArgs e) { }
 
         NodeDirection lastDirection;
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // MainForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "MainForm";
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
     enum NodeDirection

@@ -15,3 +15,4 @@ C:\Users\Mario\Documents\GitHub\PokemonGuessingGame\PokemonTypeGuesser\bin\Debug
 C:\Users\Mario\Documents\GitHub\PokemonGuessingGame\PokemonTypeGuesser\obj\Debug\PokemonGuessingGame.csprojResolveAssemblyReference.cache
 C:\Users\Mario\Documents\GitHub\PokemonGuessingGame\PokemonTypeGuesser\obj\Debug\PokemonTypeGuesser.Properties.Resources.resources
 C:\Users\Mario\Documents\GitHub\PokemonGuessingGame\PokemonTypeGuesser\obj\Debug\PokemonGuessingGame.csproj.GenerateResource.Cache
+C:\Users\Mario\Documents\GitHub\PokemonGuessingGame\PokemonTypeGuesser\obj\Debug\PokemonGuessingGame.MainForm.resources
